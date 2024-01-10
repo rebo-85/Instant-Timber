@@ -2,14 +2,14 @@ import { world } from "@minecraft/server";
 import * as utils from "utils.js";
 
 world.beforeEvents.playerBreakBlock.subscribe((event) => {
-    const isAxe = event.itemStack.typeId.match(/.+_axe/);
+    const isAxe = !!event.itemStack?.type.id.match(/.+_axe/);
     const isSneaking = event.player.isSneaking;
     if (isAxe && isSneaking) {
-      doLumberCut(event.block.location);
+      instantWoodCut(event.block.location);
     }
 });
 
-async function doLumberCut(location) {
+async function instantWoodCut(location) {
     const logBlocks = [
         "minecraft:log",
         "minecraft:log2",
